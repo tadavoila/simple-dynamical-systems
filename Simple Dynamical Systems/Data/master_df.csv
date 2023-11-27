@@ -1,4 +1,4 @@
-,word_key,exemplars,exemplar_index,frequency
+,word_key,exemplar,exemplar_index,frequency
 0,F10T1,0.2,0,10
 1,F10T1,-1.0,1,10
 2,F10T1,-1.2,2,10
@@ -490,3 +490,4 @@
 488,F9T5,0.4,5,9
 489,F9T5,0.2,6,9
 490,F9T5,0.30000000000000004,7,9
+491,F9T5,-0.1,8,9
