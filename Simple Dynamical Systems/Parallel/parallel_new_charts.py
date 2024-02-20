@@ -9,8 +9,8 @@ def database(runs):
     dfs_7_12 = []
     
     for a in range(1, runs+1):
-        means_1_6_path = 'Outputs/means_1_6_run' + str(a) + '.json'
-        means_7_12_path = 'Outputs/means_7_12_run' + str(a) + '.json'
+        means_1_6_path = 'Outputs/means_1_6_new_run' + str(a) + '.json'
+        means_7_12_path = 'Outputs/means_7_12_new_run' + str(a) + '.json'
         
         means_1_6 = pd.read_json(means_1_6_path, typ='series').to_frame(name=f'Mean{a}')
         means_7_12 = pd.read_json(means_7_12_path, typ='series').to_frame(name=f'Mean{a}')
@@ -108,4 +108,4 @@ def plots(runs):
 
     fig.show()
 
-plots(10)
+plots(50)
