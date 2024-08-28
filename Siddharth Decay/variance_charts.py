@@ -10,7 +10,7 @@ def load_and_process_data(k_str, runs):
     all_variances = {'variances_1_6_new': [], 'variances_7_12_new': []}
 
     for run_number in tqdm(range(runs), desc=f'Processing runs for k={k_str}'):
-        file_path = f'Summer_k/all_data_r{run_number}_k{k_str}.json'
+        file_path = f'Siddharth Decay/Siddharth Decay Model/all_data_r{run_number}_k{k_str}.json'
         
         with open(file_path, 'r') as f:
             data = json.load(f)
@@ -81,8 +81,8 @@ def plot_variances(all_variances, values, var_type='Regular'):
         font=dict(family="Arial", size=12, color="Black")
     )
 
-    py.plot(fig_1_6, filename=f'Siddharth Decay Charts/{var_type.lower()}_plot_1_6.html')
-    py.plot(fig_7_12, filename=f'Siddharth Decay Charts/{var_type.lower()}_plot_7_12.html')
+    py.plot(fig_1_6, filename=f'Siddharth Decay/Siddharth Decay Charts/{var_type.lower()}_plot_1_6.html')
+    py.plot(fig_7_12, filename=f'Siddharth Decay/Siddharth Decay Charts/{var_type.lower()}_plot_7_12.html')
 
 if __name__ == '__main__':
     runs = 10  # Number of runs per k_value

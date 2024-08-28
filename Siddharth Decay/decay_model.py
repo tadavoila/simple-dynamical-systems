@@ -7,7 +7,7 @@ import copy
 from statsmodels.stats.weightstats import DescrStatsW
 
 def reset_data(k_str):
-    original_file = f"Outputs/strengths_k{k_str}.json"
+    original_file = f"Siddharth Decay/Outputs/strengths_k{k_str}.json"
     
     # Load data from JSON file into a dictionary
     with open(original_file, 'r') as f:
@@ -248,7 +248,7 @@ def process_old_model(run_number, k_value, iterations):
                 data_dict[f"alt_variances_{i}_new"].append(data_dict[f"alt_variances_{i}_new"][-1])
 
     # Save the data dictionary to a single JSON file
-    file_path = f"Siddharth Decay Model/all_data_r{run_number}_k{k_value}.json"
+    file_path = f"Siddharth Decay/Siddharth Decay Model/all_data_r{run_number}_k{k_value}.json"
     with open(file_path, 'w') as f:
         json.dump(data_dict, f)
 
