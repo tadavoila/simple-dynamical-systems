@@ -60,7 +60,7 @@ def plot_means(all_means, values, var_type='Regular'):
     fig.update_layout(
         title=f'{var_type} for All Bins over Iterations',
         xaxis_title='Iteration',
-        yaxis_title=f'{var_type} Means',
+        yaxis_title=f'{var_type}',
         font=dict(family="Arial", size=12, color="Black"),
         height=1200,  # Adjust height for better readability
         showlegend=False  # Hide the legend to avoid clutter

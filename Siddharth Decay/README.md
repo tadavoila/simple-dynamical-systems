@@ -1,14 +1,22 @@
 # Siddharth's Decay Model Implementation
-### Script Key
+### Model Scripts Key
 `strengths_dict.py`: Generates Strengths
 
-`decay_model.py`: Decay Model 
+`decay_model.py`: Decay Model
+
+### Chart Scripts Key
 
 `mean_charts.py`: Graphs Average Means for Bins 1-6 and 7-12 over Iterations
 
 `variance_charts.py`: Graphs Average Variance for Bins 1-6 and 7-12 over Iterations
 
 `var_difference_charts.py`: Graphs the Average Difference of Initial Variance and Variance Values for Bins 1-6 and 7-12 over Iterations
+
+`12bins_mean_charts.py`: Graphs Means for Each Bin 1-12 over Iterations
+
+`12bins_variance_charts.py`: Graphs Variance for Each Bin 1-12 over Iterations
+
+`12bins_var_difference_charts.py`: Graphs the Difference of Initial Variance and Variance Values for Each Bin 1-12 over Iterations
 
 ### Folders Key
 `Siddharth Decay Charts`: HTML files of interactive plots (download to view)

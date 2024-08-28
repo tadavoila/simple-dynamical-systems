@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.offline as py
 import json
 from tqdm import tqdm
+from plotly.subplots import make_subplots
 
 def load_and_process_data(k_str, runs):
     """Load data for a given k_str and return the adjusted variances (relative to each file's initial variance) for bins 1-6 and 7-12 separately."""
@@ -42,9 +43,12 @@ def load_and_process_data(k_str, runs):
     return averaged_variances
 
 def plot_variances(all_variances, values, var_type='Regular'):
-    """Plot the averaged variances over iterations for bins 1-6 and bins 7-12, including a baseline at x=0."""
-    fig_1_6 = go.Figure()
-    fig_7_12 = go.Figure()
+    """Plot the adjusted variances over iterations for bins 1-6 and bins 7-12 as subplots in a single figure, including a baseline at y=0."""
+    fig = make_subplots(rows=2, cols=1, subplot_titles=[
+        f'Average Variance Difference for Bins 1-6 over Iterations',
+        f'Average Variance Difference for Bins 7-12 over Iterations'
+    ])
+    
     x_values = list(range(1, 10001))  # X-axis from 1 to 10000
 
     # Define the 10 colors
@@ -61,60 +65,51 @@ def plot_variances(all_variances, values, var_type='Regular'):
         "#708090"   # Slate Gray
     ]
 
-    # Add baseline to both figures
-    fig_1_6.add_trace(go.Scatter(
-        x=x_values,
-        y=[0] * len(x_values),
-        mode='lines',
-        name='Baseline',
-        line=dict(color='black', width=2)
-    ))
-
-    fig_7_12.add_trace(go.Scatter(
-        x=x_values,
-        y=[0] * len(x_values),
-        mode='lines',
-        name='Baseline',
-        line=dict(color='black', width=2)
-    ))
+    # Add baseline to both subplots
+    for row in range(1, 3):
+        fig.add_trace(go.Scatter(
+            x=x_values,
+            y=[0] * len(x_values),
+            mode='lines',
+            name='Baseline',
+            line=dict(color='black', width=2, dash='dash')
+        ), row=row, col=1)
 
     # Plot variances with specified colors
     for idx, (k_str, variances) in enumerate(tqdm(all_variances.items(), desc='Plotting variances')):
         color = colors[idx % len(colors)]  # Cycle through the colors
         value_used = values[idx]  # Get the corresponding value used to create k_value
 
-        fig_1_6.add_trace(go.Scatter(
+        # Plot for bins 1-6
+        fig.add_trace(go.Scatter(
             x=x_values,
             y=variances['variances_1_6_new'].iloc[:20000],
             mode='lines',
             name=f'k = {value_used}',
             line=dict(color=color)
-        ))
+        ), row=1, col=1)
 
-        fig_7_12.add_trace(go.Scatter(
+        # Plot for bins 7-12 without legend
+        fig.add_trace(go.Scatter(
             x=x_values,
             y=variances['variances_7_12_new'].iloc[:20000],
             mode='lines',
             name=f'k = {value_used}',
-            line=dict(color=color)
-        ))
+            line=dict(color=color),
+            showlegend=False  # Hide the legend for the second subplot
+        ), row=2, col=1)
 
-    fig_1_6.update_layout(
-        title=f'Average {var_type} Difference for Bins 1-6 over Iterations',
+    fig.update_layout(
+        title=f'Average Variance Difference for Bins 1-6 and Bins 7-12 over Iterations',
         xaxis_title='Iteration',
-        yaxis_title=f'{var_type} Variances',
-        font=dict(family="Arial", size=12, color="Black")
+        yaxis_title=f'Variance Difference',
+        yaxis2_title=f'Variance Difference',
+        font=dict(family="Arial", size=12, color="Black"),
+        height=800,  # Adjust height for better readability
+        showlegend=True  # Show legend only once (in the first subplot)
     )
 
-    fig_7_12.update_layout(
-        title=f'Average {var_type} Difference for Bins 7-12 over Iterations',
-        xaxis_title='Iteration',
-        yaxis_title=f'{var_type} Variances',
-        font=dict(family="Arial", size=12, color="Black")
-    )
-
-    py.plot(fig_1_6, filename=f'Siddharth Decay/Siddharth Decay Charts/{var_type.lower()}_difference_plot_1_6.html')
-    py.plot(fig_7_12, filename=f'Siddharth Decay/Siddharth Decay Charts/{var_type.lower()}_difference_plot_7_12.html')
+    py.plot(fig, filename=f'Siddharth Decay/Siddharth Decay Charts/var_difference_plot_avg_2bins.html')
 
 
 if __name__ == '__main__':

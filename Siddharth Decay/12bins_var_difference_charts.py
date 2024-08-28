@@ -70,15 +70,15 @@ def plot_variances(all_variances, values, var_type='Regular'):
             ), row=row, col=col)
 
     fig.update_layout(
-        title=f'{var_type} Difference for All Bins over Iterations',
+        title=f'{var_type} Difference from Initial Variance for All Bins over Iterations',
         xaxis_title='Iteration',
-        yaxis_title=f'{var_type} Variances',
+        yaxis_title=f'Variance Difference',
         font=dict(family="Arial", size=12, color="Black"),
         height=1200,  # Adjust height for better readability
         showlegend=False  # Hide the legend to avoid clutter
     )
 
-    py.plot(fig, filename=f'Siddharth Decay/Siddharth Decay Charts/12bins_{var_type.lower()}_difference_subplots.html')
+    py.plot(fig, filename=f'Siddharth Decay/Siddharth Decay Charts/12bins_var_difference_subplots.html')
 
 
 if __name__ == '__main__':
