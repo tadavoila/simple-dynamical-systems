@@ -58,7 +58,7 @@ def process_old_model(run_number, k_value, iterations):
     k = float(f"0.{k_value}")
     words_list = [key for key in words_data.keys()]
 
-   # Initialize lists to store mean and strength values for 1 - 12 each
+   # Initialize lists to store values for 1 - 12 each
     data_dict = {
         **{f"means_{i}_new": [] for i in range(1, 13)},
         **{f"squared_means_{i}_new": [] for i in range(1, 13)},
