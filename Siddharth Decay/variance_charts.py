@@ -81,8 +81,8 @@ def plot_variances(all_variances, values, var_type='Regular'):
         font=dict(family="Arial", size=12, color="Black")
     )
 
-    py.plot(fig_1_6, filename=f'Siddharth Decay Charts/{var_type.lower()}_variances_plot_1_6.html')
-    py.plot(fig_7_12, filename=f'Siddharth Decay Charts/{var_type.lower()}_variances_plot_7_12.html')
+    py.plot(fig_1_6, filename=f'Siddharth Decay Charts/{var_type.lower()}_plot_1_6.html')
+    py.plot(fig_7_12, filename=f'Siddharth Decay Charts/{var_type.lower()}_plot_7_12.html')
 
 if __name__ == '__main__':
     runs = 10  # Number of runs per k_value
