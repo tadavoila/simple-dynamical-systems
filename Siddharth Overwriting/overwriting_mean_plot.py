@@ -10,7 +10,7 @@ def load_and_process_data(runs):
     all_means = {'means_1_6_new': [], 'means_7_12_new': []}
 
     for run_number in tqdm(range(runs), desc=f'Processing runs'):
-        file_path = f'Siddharth Overwriting/Siddharth Overwriting Model/all_data_run{run_number}.json'
+        file_path = f'Siddharth Overwriting/Siddharth Overwriting Model/all_data_run{run_number+1}.json'
         
         with open(file_path, 'r') as f:
             data = json.load(f)

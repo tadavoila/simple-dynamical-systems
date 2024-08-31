@@ -10,7 +10,7 @@ def load_and_process_data(runs):
     all_variances = {'variances_1_6_new': [], 'variances_7_12_new': []}
 
     for run_number in tqdm(range(runs), desc=f'Processing runs'):
-        file_path = f'Siddharth Overwriting Model/all_data_run{run_number}.json'
+        file_path = f'Siddharth Overwriting/Siddharth Overwriting Model/all_data_run{run_number+1}.json'
         
         with open(file_path, 'r') as f:
             data = json.load(f)
@@ -60,7 +60,7 @@ def plot_variances(averaged_variances, iterations=10000):
         showlegend=True
     )
 
-    py.plot(fig, filename='Siddharth Overwriting Charts/variances_avg_2bins.html')
+    py.plot(fig, filename='Siddharth Overwriting/Siddharth Overwriting Charts/variances_avg_2bins.html')
 
 if __name__ == '__main__':
     runs = 100  # Number of runs
