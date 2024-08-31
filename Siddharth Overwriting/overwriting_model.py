@@ -5,7 +5,7 @@ from multiprocessing import Process
 
 def reset_data():
     # Read the initial data file
-    original_file = 'Data/initial_data_1cat.json'
+    original_file = 'Siddharth Overwriting/Data/initial_data_1cat.json'
     with open(original_file, 'r') as file:
         data = json.load(file)
 
@@ -19,7 +19,7 @@ def reset_data():
         }
 
     # Save the processed data to a new JSON file
-    pivoted_data_path = "Data/pivoted_data.json"
+    pivoted_data_path = "Siddharth Overwriting/Data/pivoted_data.json"
     with open(pivoted_data_path, 'w') as file:
         json.dump(processed_data, file)
 
@@ -105,7 +105,7 @@ def process_model(run_number, pivoted_data_path):
                 data_dict[f"alt_variances_{i}_new"].append(data_dict[f"alt_variances_{i}_new"][-1])
 
     # Save all means and variances to a single JSON file
-    output_path = f"Siddharth Overwriting Model/all_data_run{run_number + 1}.json"
+    output_path = f"Siddharth Overwriting/Siddharth Overwriting Model/all_data_run{run_number + 1}.json"
     with open(output_path, 'w') as file:
         json.dump(data_dict, file)
 
