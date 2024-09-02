@@ -7,3 +7,5 @@
 `12bins_means_subplots.html`: Means for Each Bin 1-12 over Iterations
 
 `12bins_variances_subplots_.html`: Variances for Each Bin 1-12 over Iterations
+
+**PNG files of all HTML charts are uploaded under the same name.**

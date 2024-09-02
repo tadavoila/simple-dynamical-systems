@@ -69,7 +69,7 @@ def plot_means_with_difference_regression(averaged_means, iterations=10000):
     fig.update_layout(
         title='Averaged Means for Bins 1-6 and Bins 7-12 with Regression Difference Curve',
         xaxis_title='Iteration',
-        yaxis_title='Average Mean / Regression Difference',
+        yaxis_title='Average Mean',
         font=dict(family="Arial", size=12, color="Black"),
         height=600,
         showlegend=True

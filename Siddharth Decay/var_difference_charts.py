@@ -65,13 +65,14 @@ def plot_variances(all_variances, values, var_type='Regular'):
         "#708090"   # Slate Gray
     ]
 
-    # Add baseline to both subplots
+    # Add baseline to both subplots but only show once in legend
     for row in range(1, 3):
         fig.add_trace(go.Scatter(
             x=x_values,
             y=[0] * len(x_values),
             mode='lines',
             name='Baseline',
+            showlegend= row == 1,
             line=dict(color='black', width=2, dash='dash')
         ), row=row, col=1)
 

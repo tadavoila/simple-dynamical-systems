@@ -13,3 +13,5 @@
 
 `12bins_var_difference_subplots.html`: Difference of Initial Variance and Variance Values for Each Bin 1-12 over Iterations
 
+**PNG files of all HTML charts are uploaded under the same name.**
+
