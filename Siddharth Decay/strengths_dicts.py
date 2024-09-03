@@ -2,12 +2,11 @@ import random
 import json
 import dataclasses
 from dataclasses import dataclass
-import multiprocessing
-from multiprocessing import Process
+from multiprocessing import Pool
 
 def reset_data():
     # Read the initial data file
-    original_file = 'Data/initial_data_1cat.json'
+    original_file = 'Siddharth Decay/Data/initial_data_1cat.json'
     with open(original_file, 'r') as file:
         data = json.load(file)
 
@@ -21,7 +20,7 @@ def reset_data():
         }
 
     # Save the processed data to a new JSON file
-    pivoted_data_path = "Data/pivoted_data.json"
+    pivoted_data_path = "Siddharth Decay/Data/pivoted_data.json"
     with open(pivoted_data_path, 'w') as file:
         json.dump(processed_data, file)
 
@@ -65,7 +64,8 @@ class ExemplarData:
 
         return weights
 
-def process_with_k_value(k_value, iterations, pivoted_data_path):
+def process_with_k_value(args):
+    k_value, iterations, pivoted_data_path = args
     # Load the processed data
     with open(pivoted_data_path, 'r') as file:
         words_dict = json.load(file)
@@ -85,32 +85,37 @@ def process_with_k_value(k_value, iterations, pivoted_data_path):
         exemplar_index = random.choices(range(len(exemplars_list)), weights=weights, k=1)[0]
         new_exemplar = exemplars_list[exemplar_index]
 
-        for data in exemplar_data_list:
-            data.exemplar_strength *= k_value
+        # Decay all exemplars in the dataset
+        for word_key, word_data in words_dict.items():
+            for idx, exemplar in enumerate(word_data['exemplars']):
+                # Decay the strength of each exemplar
+                if word_key == chosen_word and idx == exemplar_index:
+                    # Add new exemplar after decaying
+                    ExemplarData.add_exemplar(exemplar_data_list, chosen_word, new_exemplar, exemplar_index, frequency)
+                else:
+                    # Apply decay to existing exemplar strengths
+                    for data in exemplar_data_list:
+                        if data.word_key == word_key and data.exemplar == exemplar:
+                            data.exemplar_strength *= k_value
 
-        ExemplarData.add_exemplar(exemplar_data_list, chosen_word, new_exemplar, exemplar_index, frequency)
         exemplar_data_list = ExemplarData.remove_weak_exemplars(exemplar_data_list)
 
     k_str = "{:06.5f}".format(k_value).replace('.', '')[1:]
-    strengths_path = f"Outputs/strengths_k{k_str}.json"
+    strengths_path = f"Siddharth Decay/Outputs/strengths_k{k_str}.json"
     
     with open(strengths_path, 'w') as f:
          json.dump([dataclasses.asdict(data) for data in exemplar_data_list], f)
 
 def parallel_process_with_k_values(k_values, iterations):
     pivoted_data_path = reset_data()
-    processes = []
-
-    for k_value in k_values:
-        process = Process(target=process_with_k_value, args=(k_value, iterations, pivoted_data_path))
-        processes.append(process)
-        process.start()
-
-    for process in processes:
-        process.join()
+    # Prepare arguments for pool processing
+    args = [(k_value, iterations, pivoted_data_path) for k_value in k_values]
+    
+    with Pool(processes=10) as pool:
+        pool.map(process_with_k_value, args)
 
 if __name__ == "__main__":
-    values = [x*10 for x in range(1, 101)]
+    values = [x*10 for x in range(1, 101, 10)]
     k_values = [1 - 1/value for value in values] 
     iterations = 20000
     parallel_process_with_k_values(k_values, iterations)
