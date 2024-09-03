@@ -51,7 +51,7 @@ def plot_variances(all_variances, values, var_type='Regular'):
     
     x_values = list(range(1, 10001))  # X-axis from 1 to 10000
 
-    # Define the 10 colors
+    # Define the colors
     colors = [
         "#87CEEB",  # Sky Blue
         "#DC143C",  # Crimson Red

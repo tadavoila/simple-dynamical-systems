@@ -41,20 +41,25 @@ def plot_means(all_means, values, var_type='Regular'):
         "#708090"   # Slate Gray
     ]
 
-    for idx, (k_str, means) in enumerate(tqdm(all_means.items(), desc='Plotting means')):
-        color = colors[idx % len(colors)]  # Cycle through the colors
-        value_used = values[idx]  # Get the corresponding value used to create k_value
-
-        for bin_num in range(1, 13):
-            row = (bin_num - 1) // 3 + 1
-            col = (bin_num - 1) % 3 + 1
+    # Loop through each bin and add traces for each k value
+    for bin_num in range(1, 13):
+        row = (bin_num - 1) // 3 + 1
+        col = (bin_num - 1) % 3 + 1
+        
+        for idx, (k_str, means) in enumerate(tqdm(all_means.items(), desc='Plotting means')):
+            color = colors[idx % len(colors)]  # Cycle through the colors
+            value_used = values[idx]  # Get the corresponding value used to create k_value
             
+            # Show legend only for the first subplot (first bin)
+            show_legend = (bin_num == 1)
+
             fig.add_trace(go.Scatter(
                 x=x_values,
                 y=pd.concat(means[f'means_{bin_num}_new'], axis=1).mean(axis=1)[:20000],
                 mode='lines',
                 name=f'k = {value_used}',
-                line=dict(color=color)
+                line=dict(color=color),
+                showlegend=show_legend  # Show legend for the first subplot only
             ), row=row, col=col)
 
     fig.update_layout(
@@ -63,10 +68,10 @@ def plot_means(all_means, values, var_type='Regular'):
         yaxis_title=f'{var_type}',
         font=dict(family="Arial", size=12, color="Black"),
         height=1200,  # Adjust height for better readability
-        showlegend=False  # Hide the legend to avoid clutter
     )
 
     py.plot(fig, filename=f'Siddharth Decay/Siddharth Decay Charts/12bins_{var_type.lower()}_subplots.html')
+
 
 if __name__ == '__main__':
     runs = 10  # Number of runs per k_value
