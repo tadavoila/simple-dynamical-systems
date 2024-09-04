@@ -5,7 +5,7 @@ from multiprocessing import Pool
 import numpy as np
 import copy 
 from statsmodels.stats.weightstats import DescrStatsW
-
+# save model state (all exemplars after all iterations at problem k value), choose a freq bin, and calculate the variance with descrstats
 def reset_data(k_str):
     original_file = f"Siddharth Decay/Outputs/strengths_k{k_str}.json"
     

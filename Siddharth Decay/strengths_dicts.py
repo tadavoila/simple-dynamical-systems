@@ -85,11 +85,8 @@ def process_with_k_value(args):
         exemplar_index = random.choices(range(len(exemplars_list)), weights=weights, k=1)[0]
         new_exemplar = exemplars_list[exemplar_index]
 
-        # Decay all exemplars in the dataset
-        for word_key, word_data in words_dict.items():
-            for idx, exemplar in enumerate(word_data['exemplars']):
-                # Apply decay to the strength of each exemplar
-                word_data['exemplars'][idx] *= k_value
+        for data in exemplar_data_list:
+            data.exemplar_strength *= k_value
                 
         # Add the new exemplar to the chosen word
         ExemplarData.add_exemplar(exemplar_data_list, chosen_word, new_exemplar, exemplar_index, frequency)
