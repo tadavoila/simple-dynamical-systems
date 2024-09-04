@@ -91,12 +91,9 @@ def process_with_k_value(args):
                 # Apply decay to the strength of each exemplar
                 word_data['exemplars'][idx] *= k_value
                 
-            # Add the new exemplar to the chosen word
-            if word_key == chosen_word:
-                ExemplarData.add_exemplar(exemplar_data_list, chosen_word, new_exemplar, exemplar_index, frequency)
-
-    # After looping through all words, remove weak exemplars
-    exemplar_data_list = ExemplarData.remove_weak_exemplars(exemplar_data_list)
+        # Add the new exemplar to the chosen word
+        ExemplarData.add_exemplar(exemplar_data_list, chosen_word, new_exemplar, exemplar_index, frequency)
+        exemplar_data_list = ExemplarData.remove_weak_exemplars(exemplar_data_list)
 
     k_str = "{:06.5f}".format(k_value).replace('.', '')[1:]
     strengths_path = f"Siddharth Decay/Outputs/strengths_k{k_str}.json"
